@@ -3,7 +3,7 @@ const router = express.Router();
 
 
 //homepage
-router.get('/', (req, res)=>{
+router.get('/', async (req, res)=>{
 
     const {Client} = require('pg');
     const { Pool } = require('pg')
