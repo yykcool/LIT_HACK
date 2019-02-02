@@ -18,6 +18,6 @@ from misc import views
 from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = {
-    url(r'^Webhook_test/$', views.Webhook_test.as_view(), name="Webhook_test"),
+    url(r'^webhook_test/$', views.webhook_test.as_view(), name="webhook_test"),
 }
 urlpatterns = format_suffix_patterns(urlpatterns)
