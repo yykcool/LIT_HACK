@@ -12,12 +12,11 @@ router.get('/', async (req, res)=>{
 
     
     const { handle_help } = await pool.query('SELECT COUNT(*) FROM handle_help');
-
     const { handle_crim } = await pool.query('SELECT COUNT(*) FROM handle_criminal_law');
     const { handle_injury } = await pool.query('SELECT COUNT(*) FROM handle_personal_injury');
     const { handle_unfair } = await pool.query('SELECT COUNT(*) FROM handle_unfair_contracts');
 
-    var result = {
+    var result = await {
         "criminal law": handle_crim,
         "personal injury law": handle_injury,
         "worker's rights law": handle_help,
