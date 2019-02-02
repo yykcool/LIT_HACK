@@ -22,6 +22,7 @@ router.post('/', (request, response) => {
     }
    
     function handle_help(agent) {
+      psql.put("asd", "asdasd");
       let queryResult = request.body.queryResult;
       let complaintType = queryResult.parameters.ComplaintType;
       complaintType = [...new Set(complaintType)];
