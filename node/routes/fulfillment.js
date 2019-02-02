@@ -31,7 +31,7 @@ router.post('/', (request, response) => {
         port: 5432
     });
 
-    await client.connect()
+    client.connect()
 
    
     function handle_help(agent) {
@@ -91,13 +91,13 @@ router.post('/', (request, response) => {
       const text = 'INSERT INTO handle_help(complainType) VALUES($1) RETURNING *';
       const values = [complaintType];
 
-      client.query(text,values,(err,res)) => {
+      client.query(text,values,(err,res) => {
           if(err){
               console.log(err.stack);
           } else {
               console.log(res.rows[0])
           }
-      }
+      });
     }
   
     function handle_help_yes(agent) {
