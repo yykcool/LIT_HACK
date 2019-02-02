@@ -23,13 +23,7 @@ router.post('/', (request, response) => {
     }
 
     const {Client} = require('pg');
-    const client = new Client({
-        user: 'root',
-        host: 'localhost',
-        database: 'root',
-        password: 'password',
-        port: 5432
-    });
+    const client = new Client();
 
     client.connect()
 

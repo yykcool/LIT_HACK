@@ -1,6 +1,6 @@
 version: '3'
 services:
-  db:
+  database:
     image: postgres:11-alpine
     ports: 
       - "5432:5432"
@@ -21,5 +21,11 @@ services:
     image: yykcool/lit
     ports:
     - "8000:8080"
+    environment:
+    - PGPASSWORD=password
+    - PGUSER=root
+    - PGDATABASE=root
+    - PGHOST=database
+    - PGPORT=5432
     depends_on:
-      - db
+      - database
