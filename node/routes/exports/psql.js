@@ -9,7 +9,4 @@ const cn = {
 
 const db = pgp(cn);
 
-//export function that can be treated like class
-module.exports.put = function(table, relation){
-    console.log(table)
-};
+module.exports = db;

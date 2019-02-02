@@ -22,7 +22,7 @@ router.post('/', (request, response) => {
     }
    
     function handle_help(agent) {
-      psql.put("asd", "asdasd");
+ 
       let queryResult = request.body.queryResult;
       let complaintType = queryResult.parameters.ComplaintType;
       complaintType = [...new Set(complaintType)];
@@ -74,6 +74,30 @@ router.post('/', (request, response) => {
       agent.add(`Would you like to report an infringement?`);
       agent.add(new Suggestion(`Yes`));
       agent.add(new Suggestion(`No`));
+
+      let sco; // shared connection object;
+
+      psql.db.connect()
+      .then(obj => {
+          // obj.client = new connected Client object;
+  
+          sco = obj; // save the connection object;
+  
+          // execute all the queries you need:
+          return sco.any('INSERT INTO handle_help(complaintType) VALUES($1)',[complaintType]);
+      })
+      .then(data => {
+          // success
+      })
+      .catch(error => {
+          // error
+      })
+      .finally(() => {
+          // release the connection, if it was successful:
+          if (sco) {
+              sco.done();
+          }
+      });
     }
   
     function handle_help_yes(agent) {
