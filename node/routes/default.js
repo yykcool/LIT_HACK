@@ -6,59 +6,16 @@ const router = express.Router();
 router.get('/', (req, res)=>{
 
     const {Client} = require('pg');
-    const client = new Client();
+    const { Pool } = require('pg')
+    const pool = new Pool();
 
-    client.connect()
 
     
-    var text = 'SELECT COUNT(*) FROM handle_help';
+    const { handle_help } = await pool.query('SELECT COUNT(*) FROM handle_help');
 
-    var handle_help = 0;
-
-    client.query(text,(err,res) => {
-        if(err){
-            console.log(err.stack);
-        } else {
-            handle_help = res.rows[0];
-            console.log(res.rows[0]);
-        }
-    });
-
-    text = 'SELECT COUNT(*) FROM handle_criminal_law';
-
-    var handle_crim = 0;
-
-    client.query(text,(err,res) => {
-        if(err){
-            console.log(err.stack);
-        } else {
-            handle_crim = res.rows[0];
-        }
-    });
-
-    text = 'SELECT COUNT(*) FROM handle_personal_injury';
-
-    var handle_injury = 0;
-
-    client.query(text,(err,res) => {
-        if(err){
-            console.log(err.stack);
-        } else {
-            handle_injury = res.rows[0];
-        }
-    });
-
-    text = 'SELECT COUNT(*) FROM handle_unfair_contracts';
-
-    var handle_unfair = 0;
-
-    client.query(text,(err,res) => {
-        if(err){
-            console.log(err.stack);
-        } else {
-            handle_unfair = res.rows[0];
-        }
-    });
+    const { handle_crim } = await pool.query('SELECT COUNT(*) FROM handle_criminal_law');
+    const { handle_injury } = await pool.query('SELECT COUNT(*) FROM handle_personal_injury');
+    const { handle_unfair } = await pool.query('SELECT COUNT(*) FROM handle_unfair_contracts');
 
     var result = {
         "criminal law": handle_crim,
