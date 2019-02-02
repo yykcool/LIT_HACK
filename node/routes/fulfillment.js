@@ -82,7 +82,7 @@ router.post('/', (request, response) => {
       agent.add(new Suggestion(`Yes`));
       agent.add(new Suggestion(`No`));
 
-      const text = 'INSERT INTO handle_help(complainType) VALUES($1) RETURNING *';
+      const text = 'INSERT INTO handle_help(complaintType) VALUES($1) RETURNING *';
       const values = [complaintType];
 
       client.query(text,values,(err,res) => {
