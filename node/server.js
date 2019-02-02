@@ -15,7 +15,7 @@ const PORT = 8080;
 const HOST = '0.0.0.0';
 
 app.set('views', path.join(__dirname, 'views'));
-app.set('port', process.env.PORT || PORT);
+app.set('port', PORT);
 app.use(bodyParser.json());
 app.use(multer());
 // app.listen(PORT, HOST);
