@@ -3,6 +3,7 @@ const router = express.Router();
 
 const {WebhookClient} = require('dialogflow-fulfillment');
 const {Card, Suggestion} = require('dialogflow-fulfillment');
+const psql = require("./lib/psql.js");
 
 router.post('/', (request, response) => {
     console.log('Dialogflow Request headers: ' + JSON.stringify(request.headers));
@@ -95,6 +96,8 @@ router.post('/', (request, response) => {
   - Report an infringement online: https://services.mom.gov.sg/efeedback/?option=11
   
   - Email to mom_fmmd@mom.gov.sg`);
+
+      
     }
     
     function handle_unfair_contracts(agent) {
