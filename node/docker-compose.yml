@@ -1,12 +1,5 @@
 version: '3'
 services:
-  node:
-    build: .
-    image: yykcool/lit
-    ports:
-    - "8000:8080"
-    depends_on:
-      - db
   db:
     image: postgres:11-alpine
     ports: 
@@ -22,3 +15,11 @@ services:
     restart: always
     ports:
       - "8088:8080"
+
+  node:
+    build: .
+    image: yykcool/lit
+    ports:
+    - "8000:8080"
+    depends_on:
+      - db
