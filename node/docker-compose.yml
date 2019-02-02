@@ -1,0 +1,8 @@
+version: '3'
+services:
+  node:
+    build: .
+    image: yykcool/lit
+    ports:
+    - "8000:8080"
+  

@@ -1,4 +1,12 @@
-dir('/var/lib/jenkins/workspace/lit/node') {
-    sh label: '', script: '''docker build -t yykcool/lit .
-                              docker run -p 8888:8080 yykcool/lit'''
+pipeline {
+    sh 'cd node'
+    agent { dockerfile true }
+    stages {
+        stage('Test') {
+            steps {
+                sh 'node --version'
+                sh 'svn --version'
+            }
+        }
+    }
 }
