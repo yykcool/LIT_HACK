@@ -65,13 +65,6 @@ router.get('/', (req, res)=>{
         "unfair contract law": handle_unfair
     };
 
-    res.render('index', {
-        "criminal law": handle_crim,
-        "personal injury law": handle_injury,
-        "worker's rights law": handle_help,
-        "unfair contract law": handle_unfair
-    })
-
     res.render('index', { 
         title: 'numbers', 
         message: result })
