@@ -67,7 +67,7 @@ router.get('/', (req, res)=>{
 
     res.render('index', { 
         title: 'numbers', 
-        message: result })
+        message: JSON.stringify(result) })
 
     
 });
