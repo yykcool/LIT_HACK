@@ -28,7 +28,7 @@ router.get('/', (req, res)=>{
             console.log(res.rows[0]);
             all_done[0] = true
             result["worker's rights law"] = handle_help
-            render(result)
+            render(res, result)
         }
     });
 
@@ -43,7 +43,7 @@ router.get('/', (req, res)=>{
             handle_crim = res.rows[0];
             all_done[1] = true
             result["criminal law"] = handle_crim
-            render(result)
+            render(res, result)
         }
     });
 
@@ -58,7 +58,7 @@ router.get('/', (req, res)=>{
             handle_injury = res.rows[0];
             all_done[2] = true
             result["personal injury law"] = handle_injury
-            render(result)
+            render(res, result)
         }
     });
 
@@ -73,7 +73,7 @@ router.get('/', (req, res)=>{
             handle_unfair = res.rows[0];
             all_done[3] = true
             result["unfair contract law"] = handle_unfair
-            render(result)
+            render(res, result)
         }
     });
 
@@ -91,7 +91,7 @@ router.get('/', (req, res)=>{
     
 });
 
-function render(result) {
+function render(res, result) {
     for (var i in all_done) {
         if (!all_done[i]) {
             return
