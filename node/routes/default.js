@@ -24,8 +24,8 @@ router.get('/', (req, res)=>{
         if(err){
             console.log(err.stack);
         } else {
-            handle_help = res.rows[0];
-            console.log(res.rows[0]);
+            handle_help = res2.rows[0];
+            console.log(res2.rows[0]);
             all_done[0] = true
             result["worker's rights law"] = handle_help
             render(res, result)
@@ -40,7 +40,7 @@ router.get('/', (req, res)=>{
         if(err){
             console.log(err.stack);
         } else {
-            handle_crim = res.rows[0];
+            handle_crim = res2.rows[0];
             all_done[1] = true
             result["criminal law"] = handle_crim
             render(res, result)
@@ -55,7 +55,7 @@ router.get('/', (req, res)=>{
         if(err){
             console.log(err.stack);
         } else {
-            handle_injury = res.rows[0];
+            handle_injury = res2.rows[0];
             all_done[2] = true
             result["personal injury law"] = handle_injury
             render(res, result)
@@ -70,7 +70,7 @@ router.get('/', (req, res)=>{
         if(err){
             console.log(err.stack);
         } else {
-            handle_unfair = res.rows[0];
+            handle_unfair = res2.rows[0];
             all_done[3] = true
             result["unfair contract law"] = handle_unfair
             render(res, result)
