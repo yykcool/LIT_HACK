@@ -19,6 +19,7 @@ router.get('/', (req, res)=>{
             console.log(err.stack);
         } else {
             handle_help = res.rows[0];
+            console.log(res.rows[0]);
         }
     });
 

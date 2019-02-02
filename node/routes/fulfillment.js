@@ -376,6 +376,17 @@ router.post('/', (request, response) => {
         o	Anything said from then on in answer to the charge, or any silence or refusal to make a statement, must be recorded by the investigating officer.`);
         agent.add(`More information: https://singaporelegaladvice.com/law-articles/police-investigation-singapore/`);
         handle_criminal_law_arrest_investigation(agent, true);
+
+        const text = 'INSERT INTO handle_criminal_law(complaint_type) VALUES($1) RETURNING *';
+        const values = ['ARREST_STATEMENTS'];
+  
+        client.query(text,values,(err,res) => {
+            if(err){
+                console.log(err.stack);
+            } else {
+                console.log(res.rows[0])
+            }
+        });
       }
     
       // Run the proper function handler based on the matched Dialogflow intent name
