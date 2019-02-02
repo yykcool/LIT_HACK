@@ -3,8 +3,8 @@ const router = express.Router();
 
 const {WebhookClient} = require('dialogflow-fulfillment');
 const {Card, Suggestion} = require('dialogflow-fulfillment');
-const e = require("./exports");
-const psql = e.psql;
+
+
 
 router.post('/', (request, response) => {
     console.log('Dialogflow Request headers: ' + JSON.stringify(request.headers));
@@ -21,6 +21,18 @@ router.post('/', (request, response) => {
         })
       );
     }
+
+    const {Client} = require('pg');
+    const client = new Client({
+        user: 'root',
+        host: 'localhost',
+        database: 'root',
+        password: 'password',
+        port: 5432
+    });
+
+    await client.connect()
+
    
     function handle_help(agent) {
  
@@ -76,29 +88,16 @@ router.post('/', (request, response) => {
       agent.add(new Suggestion(`Yes`));
       agent.add(new Suggestion(`No`));
 
-      let sco; // shared connection object;
+      const text = 'INSERT INTO handle_help(complainType) VALUES($1) RETURNING *';
+      const values = [complaintType];
 
-      psql.db.connect()
-      .then(obj => {
-          // obj.client = new connected Client object;
-  
-          sco = obj; // save the connection object;
-  
-          // execute all the queries you need:
-          return sco.any('INSERT INTO handle_help(complaintType) VALUES($1)',[complaintType]);
-      })
-      .then(data => {
-          // success
-      })
-      .catch(error => {
-          // error
-      })
-      .finally(() => {
-          // release the connection, if it was successful:
-          if (sco) {
-              sco.done();
+      client.query(text,values,(err,res)) => {
+          if(err){
+              console.log(err.stack);
+          } else {
+              console.log(res.rows[0])
           }
-      });
+      }
     }
   
     function handle_help_yes(agent) {
