@@ -14,7 +14,7 @@ router.get('/', (req, res)=>{
 
     var handle_help = 0;
 
-    client.query(text,values,(err,res) => {
+    client.query(text,(err,res) => {
         if(err){
             console.log(err.stack);
         } else {
@@ -26,7 +26,7 @@ router.get('/', (req, res)=>{
 
     var handle_crim = 0;
 
-    client.query(text,values,(err,res) => {
+    client.query(text,(err,res) => {
         if(err){
             console.log(err.stack);
         } else {
@@ -38,7 +38,7 @@ router.get('/', (req, res)=>{
 
     var handle_injury = 0;
 
-    client.query(text,values,(err,res) => {
+    client.query(text,(err,res) => {
         if(err){
             console.log(err.stack);
         } else {
@@ -50,7 +50,7 @@ router.get('/', (req, res)=>{
 
     var handle_unfair = 0;
 
-    client.query(text,values,(err,res) => {
+    client.query(text,(err,res) => {
         if(err){
             console.log(err.stack);
         } else {
