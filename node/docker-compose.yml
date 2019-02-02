@@ -5,4 +5,18 @@ services:
     image: yykcool/lit
     ports:
     - "8000:8080"
-  
+  db:
+    image: postgres:11-alpine
+    ports: 
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD: password
+      - POSTGRES_USER: root
+    volumes:
+      - /var/lib/postgresql/11/main:/var/lib/postgresql/11/main
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8088:8080"

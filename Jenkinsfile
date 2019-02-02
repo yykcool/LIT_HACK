@@ -6,11 +6,10 @@ pipeline {
       } 
     }
     stages {
-        stage('Test') {
+        stage('Build') {
             steps {
               dir('node'){
-                sh 'node --version'
-                sh 'svn --version'
+                step([$class: 'DockerComposeBuilder', dockerComposeFile: 'docker-compose.yml', option: [$class: 'StartAllServices'], useCustomDockerComposeFile: true])
               }
             }
         }
