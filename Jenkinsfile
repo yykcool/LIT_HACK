@@ -1,6 +1,7 @@
 pipeline {
+  dir('node') {
     agent { dockerfile true }
-    stages {
+      stages {
         stage('Test') {
             steps {
                 sh 'cd node'
@@ -9,4 +10,6 @@ pipeline {
             }
         }
     }
+  }
+
 }
