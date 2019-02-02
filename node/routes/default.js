@@ -12,12 +12,7 @@ router.get('/', (req, res)=>{
 
     
     var text = 'SELECT COUNT(*) FROM handle_help';
-
     var handle_help = 0;
-    const { id } = req.params
-    const { rows } = await db.query('SELECT * FROM users WHERE id = $1', [id])
-    res.send(rows[0])
-
     client.query(text,(err,res) => {
         if(err){
             console.log(err.stack);
