@@ -1,6 +1,13 @@
 const express = require('express');
 const router = express.Router();
 
+all_done = [false, false, false, false]
+var result = {
+    "criminal law": 0,
+    "personal injury law": 0,
+    "worker's rights law": 0,
+    "unfair contract law": 0
+};
 
 //homepage
 router.get('/', (req, res)=>{
@@ -19,6 +26,9 @@ router.get('/', (req, res)=>{
         } else {
             handle_help = res.rows[0];
             console.log(res.rows[0]);
+            all_done[0] = true
+            result["worker's rights law"] = handle_help
+            render(result)
         }
     });
 
@@ -31,6 +41,9 @@ router.get('/', (req, res)=>{
             console.log(err.stack);
         } else {
             handle_crim = res.rows[0];
+            all_done[1] = true
+            result["criminal law"] = handle_crim
+            render(result)
         }
     });
 
@@ -43,6 +56,9 @@ router.get('/', (req, res)=>{
             console.log(err.stack);
         } else {
             handle_injury = res.rows[0];
+            all_done[2] = true
+            result["personal injury law"] = handle_injury
+            render(result)
         }
     });
 
@@ -55,21 +71,36 @@ router.get('/', (req, res)=>{
             console.log(err.stack);
         } else {
             handle_unfair = res.rows[0];
+            all_done[3] = true
+            result["unfair contract law"] = handle_unfair
+            render(result)
         }
     });
 
-    var result = {
-        "criminal law": handle_crim,
-        "personal injury law": handle_injury,
-        "worker's rights law": handle_help,
-        "unfair contract law": handle_unfair
-    };
+    // var result = {
+    //     "criminal law": handle_crim,
+    //     "personal injury law": handle_injury,
+    //     "worker's rights law": handle_help,
+    //     "unfair contract law": handle_unfair
+    // };
+
+    // res.render('index', { 
+    //     title: 'numbers', 
+    //     message: JSON.stringify(result) })
+
+    
+});
+
+function render(result) {
+    for (var i in all_done) {
+        if (!all_done[i]) {
+            return
+        }
+    }
 
     res.render('index', { 
         title: 'numbers', 
         message: JSON.stringify(result) })
-
-    
-});
+}
 
 module.exports = router;
