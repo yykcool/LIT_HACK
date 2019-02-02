@@ -3,7 +3,8 @@ const router = express.Router();
 
 const {WebhookClient} = require('dialogflow-fulfillment');
 const {Card, Suggestion} = require('dialogflow-fulfillment');
-const psql = require("./exports/psql.js");
+const e = require("./exports");
+const db = exports.psql.db;
 
 router.post('/', (request, response) => {
     console.log('Dialogflow Request headers: ' + JSON.stringify(request.headers));
@@ -77,7 +78,7 @@ router.post('/', (request, response) => {
 
       let sco; // shared connection object;
 
-      psql.db.connect()
+      db.connect()
       .then(obj => {
           // obj.client = new connected Client object;
   
