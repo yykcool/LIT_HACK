@@ -4,7 +4,7 @@ const router = express.Router();
 const {WebhookClient} = require('dialogflow-fulfillment');
 const {Card, Suggestion} = require('dialogflow-fulfillment');
 const e = require("./exports");
-const db = exports.psql.db;
+const db = e.psql.db;
 
 router.post('/', (request, response) => {
     console.log('Dialogflow Request headers: ' + JSON.stringify(request.headers));
