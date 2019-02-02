@@ -1,4 +1,5 @@
-pipeline {
+node('master'){
+  pipeline {
     agent { 
       dockerfile {
         dir 'node'
@@ -6,15 +7,14 @@ pipeline {
       } 
     }
     stages {
-      node('master'){
-        stage('Build') {
-          steps {
-            dir('node'){
-              step([$class: 'DockerComposeBuilder', dockerComposeFile: 'docker-compose.yml', option: [$class: 'StartAllServices'], useCustomDockerComposeFile: true])
+      stage('Build') {
+        steps {
+          dir('node'){
+            step([$class: 'DockerComposeBuilder', dockerComposeFile: 'docker-compose.yml', option: [$class: 'StartAllServices'], useCustomDockerComposeFile: true])
               
-            }
           }
         }
       }
     }
+  }
 }
