@@ -18,6 +18,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('port', PORT);
 app.use(bodyParser.json());
 app.use(multer());
+app.set('view engine', 'pug')
+
 // app.listen(PORT, HOST);
 // console.log(`Running on http://${HOST}:${PORT}`);
 const routes = require('./routes');

@@ -16,14 +16,19 @@ router.get('/', async (req, res)=>{
     const { handle_injury } = await pool.query('SELECT COUNT(*) FROM handle_personal_injury');
     const { handle_unfair } = await pool.query('SELECT COUNT(*) FROM handle_unfair_contracts');
 
-    var result = await {
+    var result = {
         "criminal law": handle_crim,
         "personal injury law": handle_injury,
         "worker's rights law": handle_help,
         "unfair contract law": handle_unfair
     };
 
-    res.send(result);
+    res.render('index', {
+        "criminal law": handle_crim,
+        "personal injury law": handle_injury,
+        "worker's rights law": handle_help,
+        "unfair contract law": handle_unfair
+    })
     
 });
 
