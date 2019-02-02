@@ -7,8 +7,8 @@ const {Card, Suggestion} = require('dialogflow-fulfillment');
 router.post('/', (request, response) => {
     console.log('Dialogflow Request headers: ' + JSON.stringify(request.headers));
     console.log('Dialogflow Request body: ' + JSON.stringify(request.body));
-    const agent = new WebhookClient({request,response})
-  
+    const agent = new WebhookClient({ request, response });
+    
     function show_salary_card(agent, title, text, buttonUrl) {
       agent.add(new Card({
           title: `For ${title} matters,`,
@@ -19,7 +19,7 @@ router.post('/', (request, response) => {
         })
       );
     }
-  
+   
     function handle_help(agent) {
       let queryResult = request.body.queryResult;
       let complaintType = queryResult.parameters.ComplaintType;
@@ -96,7 +96,7 @@ router.post('/', (request, response) => {
   
   - Email to mom_fmmd@mom.gov.sg`);
     }
-  
+    
     function handle_unfair_contracts(agent) {
       agent.add(`May I confirm that this is a business-consumer transaction?`);
       agent.add(new Suggestion(`Yes`));
@@ -109,9 +109,9 @@ router.post('/', (request, response) => {
       agent.add(new Suggestion(`Learn about Unfair Contract Terms Act (UCTA)`));
       // agent.add(new Suggestion(`Contact a Civil Litigation Lawyer`));
     }
-  
+    
     function handle_unfair_contracts_yes_sct(agent) {
-      agent.add(`•	To make a claim at the Small Claims Tribunals (SCT), you can either fax in the form or lodge a claim in person at the SCT. There will be a non-refundable lodgement fee that has to be paid to process your claim.
+        agent.add(`•	To make a claim at the Small Claims Tribunals (SCT), you can either fax in the form or lodge a claim in person at the SCT. There will be a non-refundable lodgement fee that has to be paid to process your claim.
   •	You will need a civil litigation lawyer to assist with your legal matters. 
   
   Information from:
@@ -122,28 +122,112 @@ router.post('/', (request, response) => {
   •	An advantage of the SCT is that the loser does not have to bear any legal costs incurred.
   Information:
   https://singaporelegaladvice.com/law-articles/make-small-claim-small-claims-tribunal-singapore/`);
+          agent.add(new Suggestion(`Learn about Small Claims Tribunals`));
+          agent.add(new Suggestion(`Learn about legal actions for Consumer Protection`));
+          agent.add(new Suggestion(`Contact a Civil Litigation Lawyer`));
+          agent.add(new Suggestion(`Goodbye!`));
+    }
+    
+    function handle_unfair_contracts_yes_cll(agent) {
+        agent.add(`You may find a relevant lawyer here:`);
+        agent.add(`https://singaporelegaladvice.com/find-a-lawyer/services/litigation-lawyers/`);
         agent.add(new Suggestion(`Learn about Small Claims Tribunals`));
         agent.add(new Suggestion(`Learn about legal actions for Consumer Protection`));
         agent.add(new Suggestion(`Contact a Civil Litigation Lawyer`));
-  }
+          agent.add(new Suggestion(`Goodbye!`));
+    }
+    
+    function handle_personal_injury_yes(agent) {
+      agent.add(`A faster and more affordable alternative to common law civil claim is the Workplace Compensation Act (WICA) 
+  - Domestic workers, uniformed personnel and independent contractors are not covered under WICA`);
+      agent.add(`If you wish to pursue a civil suit under common law, you would need a lawyer 
+  - https://singaporelegaladvice.com/find-a-lawyer/services/personal-injury-lawyers/`);
+      agent.add(`What do you wish to know next?`);
+      agent.add(new Suggestion(`Learn more about the types of claims that can be made`));
+      agent.add(new Suggestion(`What is the process for compensation`));
+      agent.add(new Suggestion(`Goodbye!`));
+    }
+    
+    function handle_personal_injury_claims(agent) {
+      agent.add(`What type of claims do you wish to know more about?`);
+      agent.add(new Suggestion(`Medical Leave Wages / Expenses`));
+      agent.add(new Suggestion(`Lump Sum`));
+      agent.add(new Suggestion(`Goodbye!`));
+    }
+    
+    function handle_personal_injury_medical_leave_wages_expenses(agent) {
+      agent.add(`It is possible to claim for working days covered by medical leave given by Singapore registered doctors, or hospitalisation leave.
+  https://singaporelegaladvice.com/law-articles/how-to-obtain-work-injury-compensation-for-workplace-accidents/`);
+      agent.add(`You can also use calculators provided by MOM to find out your average monthly earnings
+  https://www.mom.gov.sg/workplace-safety-and-health/work-injury-compensation/resources-and-tools/wic-calculators/average-monthly-earnings`);
+      agent.add(`What do you wish to know next?`);
+      agent.add(new Suggestion(`Learn more about the types of claims that can be made`));
+      agent.add(new Suggestion(`What is the process for compensation`));
+      agent.add(new Suggestion(`Goodbye!`));
+    }
+    
+    function handle_personal_injury_lump_sum(agent) {
+      agent.add(`Calculator for permanent incapacity compensation 
+  https://www.mom.gov.sg/workplace-safety-and-health/work-injury-compensation/resources-and-tools/wic-calculators/permanent-incapacity-compensation`);
+      agent.add(`Calculator for compensation for death 
+  https://www.mom.gov.sg/workplace-safety-and-health/work-injury-compensation/resources-and-tools/wic-calculators/compensation-for-death`);
+      agent.add(`What do you wish to know next?`);
+      agent.add(new Suggestion(`Learn more about the types of claims that can be made`));
+      agent.add(new Suggestion(`What is the process for compensation`));
+      agent.add(new Suggestion(`Goodbye!`));
+    }
+    
+    function handle_personal_injury_compensation(agent) {
+      agent.add(`What type of compensation do you wish to know more about?`);
+      agent.add(new Suggestion(`Filing Process`));
+      agent.add(new Suggestion(`Civil Suit`));
+      agent.add(new Suggestion(`Goodbye!`));
+    }
+    
+    function handle_personal_injury_compensation_filing(agent) {
+      agent.add(`Report the accident to your employer immediately and seek compensation for medical leave wages and treatment`);
+      agent.add(`If you are permanently incapacitated, 
+  •	Report the injury to your employer as soon as possible.
+  •	Your employer will report the accident to the Ministry of Manpower (MOM), and MOM will send you a claim application form.
+  •	After receiving the claim application form, you will have to make a choice whether you wish to make the claim under the WICA. If you do, MOM will process the claim, and if not, MOM will send you an acknowledgment that you do not wish to claim under the WICA.
+  •	If you wish to make the claim, you will need to go for a medical assessment to assess the extent of your incapacity.
+  •	After this medical assessment, you will receive a notice of the assessment as well as the compensation amount.`);
+      agent.add(`You may wish to hire a lawyer to assist you to file a WICA claim on your own 
+  https://singaporelegaladvice.com/find-a-lawyer/services/personal-injury-lawyers/`);
+      agent.add(`What do you wish to know next?`);
+      agent.add(new Suggestion(`Learn more about the types of claims that can be made`));
+      agent.add(new Suggestion(`What is the process for compensation`));
+      agent.add(new Suggestion(`Goodbye!`));
+    }
+    
+    function handle_personal_injury_compensation_civil(agent) {
+      agent.add(`You only can either file a civil suit against your employer to receive compensation for workplace related injury or claim under WICA
+  •	Civil suit will have no limits on compensation, but damages have to be proved
+  •	A claim under WICA will save you legal fees `);
+      agent.add(`If you wish to file a suit, you should hire a lawyer
+  https://singaporelegaladvice.com/find-a-lawyer/services/personal-injury-lawyers/ `);
+      agent.add(`What do you wish to know next?`);
+      agent.add(new Suggestion(`Learn more about the types of claims that can be made`));
+      agent.add(new Suggestion(`What is the process for compensation`));
+      agent.add(new Suggestion(`Goodbye!`));
+    }
   
-  function handle_unfair_contracts_yes_cll(agent) {
-      agent.add(`You may find a relevant lawyer here:`);
-      agent.add(`https://singaporelegaladvice.com/find-a-lawyer/services/litigation-lawyers/`);
-      agent.add(new Suggestion(`Learn about Small Claims Tribunals`));
-      agent.add(new Suggestion(`Learn about legal actions for Consumer Protection`));
-      agent.add(new Suggestion(`Contact a Civil Litigation Lawyer`));
-  }
-  
-  // Run the proper function handler based on the matched Dialogflow intent name
-  let intentMap = new Map();
-  intentMap.set('Need Help with Employer', handle_help);
-  intentMap.set('Need Help with Employer - yes', handle_help_yes);
-  intentMap.set('Unfair Contracts (General Inquiry)', handle_unfair_contracts);
-  intentMap.set('Unfair Contracts (General Inquiry) - yes', handle_unfair_contracts_yes);
-  intentMap.set('Unfair Contracts (General Inquiry) - SCT', handle_unfair_contracts_yes_sct);
-  intentMap.set('Unfair Contracts (General Inquiry) - CLL', handle_unfair_contracts_yes_cll);
-  agent.handleRequest(intentMap);
+    // Run the proper function handler based on the matched Dialogflow intent name
+    let intentMap = new Map();
+    intentMap.set('Need Help with Employer', handle_help);
+    intentMap.set('Need Help with Employer - yes', handle_help_yes);
+    intentMap.set('Unfair Contracts (General Inquiry)', handle_unfair_contracts);
+    intentMap.set('Unfair Contracts (General Inquiry) - yes', handle_unfair_contracts_yes);
+    intentMap.set('Unfair Contracts (General Inquiry) - SCT', handle_unfair_contracts_yes_sct);
+    intentMap.set('Unfair Contracts (General Inquiry) - CLL', handle_unfair_contracts_yes_cll);
+    intentMap.set('Personal Injury - yes', handle_personal_injury_yes);
+    intentMap.set('Personal Injury - Claims', handle_personal_injury_claims);
+    intentMap.set('Personal Injury - Medical Leave Wages Expenses', handle_personal_injury_medical_leave_wages_expenses);
+    intentMap.set('Personal Injury - Lump Sum', handle_personal_injury_lump_sum);
+    intentMap.set('Personal Injury - Compensation', handle_personal_injury_compensation);
+    intentMap.set('Personal Injury - Compensation Filing', handle_personal_injury_compensation_filing);
+    intentMap.set('Personal Injury - Compensation Civil', handle_personal_injury_compensation_civil);
+    agent.handleRequest(intentMap);
   
   });
 
