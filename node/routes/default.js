@@ -1,13 +1,13 @@
 const express = require('express');
-const router = express.Router();
-
-const {Client} = require('pg');
-const client = new Client();
-
-client.connect()
 
 //homepage
 router.get('/', (req, res)=>{
+    const router = express.Router();
+
+    const {Client} = require('pg');
+    const client = new Client();
+
+    client.connect()
 
     
     var text = 'SELECT COUNT(*) FROM handle_help';
