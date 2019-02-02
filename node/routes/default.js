@@ -71,6 +71,11 @@ router.get('/', (req, res)=>{
         "worker's rights law": handle_help,
         "unfair contract law": handle_unfair
     })
+
+    res.render('index', { 
+        title: 'numbers', 
+        message: result })
+
     
 });
 
