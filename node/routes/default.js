@@ -10,7 +10,7 @@ client.connect()
 router.get('/', (req, res)=>{
 
     
-    const text = 'SELECT COUNT(*) FROM handle_help';
+    var text = 'SELECT COUNT(*) FROM handle_help';
 
     var handle_help = 0;
 
